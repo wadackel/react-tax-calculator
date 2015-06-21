@@ -11,4 +11,4 @@ react-tax-calculatorはReact+CoffeeScriptで制作した消費税の計算アプ
 
 
 ## 制作について
-元記事：[React.jsで消費税の計算アプリを作ってみた](./)
+元記事：[React.jsで消費税の計算アプリを作ってみた | WebDesign Dackel](http://webdesign-dackel.com/2015/06/22/react-tax-calculator/)
