@@ -24431,7 +24431,7 @@
 /* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DefaultSetting, FormatType, React, Select, TaxRule;
+	var DefaultSetting, FormatType, React, Select, TaxSetting;
 	
 	React = __webpack_require__(177);
 	
@@ -24441,7 +24441,7 @@
 	
 	DefaultSetting = __webpack_require__(204);
 	
-	TaxRule = React.createClass({
+	TaxSetting = React.createClass({
 	  propTypes: {
 	    rate: React.PropTypes.number,
 	    rule: React.PropTypes.string,
@@ -24560,7 +24560,7 @@
 	  }
 	});
 	
-	module.exports = TaxRule;
+	module.exports = TaxSetting;
 
 
 /***/ },

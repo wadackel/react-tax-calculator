@@ -4,7 +4,7 @@ FormatType = require("../constants/FormatType")
 DefaultSetting = require("../constants/DefaultSetting")
 
 
-TaxRule = React.createClass
+TaxSetting = React.createClass
   propTypes:
     rate: React.PropTypes.number
     rule: React.PropTypes.string
@@ -98,4 +98,4 @@ TaxRule = React.createClass
 
 
 
-module.exports = TaxRule
+module.exports = TaxSetting
