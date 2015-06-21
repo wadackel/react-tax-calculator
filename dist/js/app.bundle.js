@@ -24530,13 +24530,13 @@
 	  handleRateChange: function(e) {
 	    var base, value;
 	    value = e.target.value.trim();
-	    if (value === "") {
-	      return;
+	    if (value !== "") {
+	      value = parseInt(e.target.value);
 	    }
-	    value = parseInt(e.target.value);
-	    if (!isNaN(value)) {
-	      return typeof (base = this.props).onRateChange === "function" ? base.onRateChange(value) : void 0;
+	    if (isNaN(value)) {
+	      value = "";
 	    }
+	    return typeof (base = this.props).onRateChange === "function" ? base.onRateChange(value) : void 0;
 	  },
 	  handleRuleChange: function(value) {
 	    var base;

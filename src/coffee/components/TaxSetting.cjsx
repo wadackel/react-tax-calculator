@@ -78,12 +78,9 @@ TaxRule = React.createClass
 
   handleRateChange: (e) ->
     value = e.target.value.trim()
-    if value == ""
-      return
-
-    value = parseInt(e.target.value)
-    if !isNaN(value)
-      @props.onRateChange?(value)
+    value = parseInt(e.target.value) if value != ""
+    value = "" if isNaN(value)
+    @props.onRateChange?(value)
 
   handleRuleChange: (value) ->
     @props.onRuleChange?(value)

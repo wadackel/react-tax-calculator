@@ -10,6 +10,7 @@
   & [role="tab"] {
     display:table-cell;
     padding:15px;
+    text-align:center;
     &[aria-selected="true"] {
       border-color:$color-border;
       border-radius:0;
