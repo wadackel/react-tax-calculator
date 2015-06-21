@@ -1,0 +1,8 @@
+.clearfix {
+  zoom:1;
+  &:after {
+    content:"";
+    clear:both;
+    display:block;
+  }
+}

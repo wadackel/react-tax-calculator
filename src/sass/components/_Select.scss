@@ -1,0 +1,139 @@
+@keyframes Select-animation-spin {
+  to {
+    transform:rotate(1turn);
+  }
+}
+
+.Select {
+  position:relative;
+  z-index:auto;
+  font-size:14px;
+}
+
+.Select-control {
+  position:relative;
+  overflow:hidden;
+  height:$control-height-md;
+  box-sizing:border-box;
+  padding:0 25px 0 0;
+  cursor:default;
+  outline:none;
+  transition:all 200ms ease;
+}
+
+.Select-placeholder {
+  position:absolute;
+  top:0;
+  right:-15px;
+  left:0;
+  z-index:1;
+  overflow:hidden;
+  max-width:100%;
+  box-sizing:border-box;
+  padding:0;
+  border-bottom:1px solid $color-border;
+  line-height:$control-height-md;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.Select-input > input {
+  display:inline-block;
+  margin:0;
+  padding:0;
+  cursor:default;
+  font-family:inherit;
+  font-size:inherit;
+  border:0 none;
+  outline:none;
+  background:none transparent;
+  -webkit-appearance:none;
+}
+
+.is-focused .Select-input > input {
+  cursor:text;
+}
+
+.Select-control:not(.is-searchable) > .Select-input {
+  outline:none;
+}
+
+.Select-arrow {
+  content:" ";
+  position:absolute;
+  top:20px;
+  right:10px;
+  display:block;
+  width:0;
+  height:0;
+  margin-top:-ceil(2.5px);
+  border-width:5px 5px 0;
+  border-style:solid;
+  border-color:#999 transparent transparent;
+}
+
+.Select-menu-outer {
+  position:absolute;
+  z-index:9999;
+  top:100%;
+  box-sizing:border-box;
+  width:100%;
+  max-height:200px;
+  margin-top:-1px;
+  background-color:white;
+  box-shadow:$depth-2;
+  -webkit-overflow-scrolling:touch;
+}
+
+.Select-menu {
+  overflow-y:auto;
+  max-height:198px;
+}
+
+.Select-option {
+  display:block;
+  box-sizing:border-box;
+  padding:8px 10px;
+  color:#666;
+  transition:all $transition-duration $ease-out-quart;
+  cursor:pointer;
+}
+
+.Select-option.is-focused {
+  background-color:#eceff1;
+}
+
+.Select-item {
+  display:inline-block;
+  margin:2px;
+  color:#08c;
+  font-size:1em;
+  border:1px solid #c9e6f2;
+  background-color:#f2f9fc;
+}
+
+.Select-item-icon,
+.Select-item-label {
+  display:inline-block;
+  vertical-align:middle;
+}
+
+.Select-item-label {
+  padding:3px 5px;
+  cursor:default;
+  border-radius:0;
+}
+
+.Select-item-label .Select-item-label__a {
+  cursor:pointer;
+  color:#08c;
+}
+
+
+@include mq-small {
+  .Select-option {
+    padding-top:12px;
+    padding-bottom:12px;
+  }
+}
+

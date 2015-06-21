@@ -1,0 +1,25 @@
+$screen-sm:700px;
+$screen-sm-padding:10px;
+
+$control-height-md:44px;
+$control-height-lg:50px;
+$control-height-x-lg:70px;
+
+$control-font-size-md:14px;
+$control-font-size-lg:22px;
+$control-font-size-x-lg:35px;
+
+$color-green:#009688;
+$color-blue:#03a9f4;
+$color-yellow:#ffeb3b;
+$color-gray-darker:#455a64;
+$color-gray:#78909c;
+
+$color-link:#00bfa5;
+$color-link-hover:darken($color-link, 10%);
+$color-border:#cfd8dc;
+
+$depth-1:0 3px 8px rgba(0, 0, 0, .4);
+$depth-2:0 4px 10px rgba(0, 0, 0, .4);
+
+$transition-duration:.3s;

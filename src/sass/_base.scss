@@ -1,0 +1,52 @@
+::selection {
+  background:lighten($color-blue, 10%);
+}
+
+::-moz-selection {
+  background:lighten($color-blue, 10%);
+}
+
+html,
+body {
+  min-width:320px;
+  background:#fff;
+  color:$color-gray-darker;
+  font-family:"Roboto Condensed","ヒラギノ角ゴ Pro W3","ヒラギノ角ゴ Pro","Hiragino Kaku Gothic Pro","Hiragino Kaku Gothic ProN",Arial,Helvetica,"メイリオ",Meiryo,sans-serif;
+  font-size:16px;
+}
+
+h2 {
+  font-size:22px;
+}
+
+a {
+  color:$color-link;
+  text-decoration:underline;
+  transition:all $transition-duration $ease-out-quart;
+  &:hover {
+    color:$color-link-hover;
+    text-decoration:none;
+  }
+}
+
+input,
+textarea,
+button {
+  appearance:none;
+  &:focus {
+    outline:none;
+  }
+}
+
+
+@include mq-small {
+  html,
+  body {
+    font-size:14px;
+  }
+
+  h2 {
+    font-size:18px;
+  }
+}
+

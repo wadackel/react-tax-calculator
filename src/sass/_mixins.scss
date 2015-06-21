@@ -1,0 +1,15 @@
+@mixin placeholder-color($color) {
+  &:-moz-placeholder {
+    color:$color;
+  }
+  
+  &::-webkit-input-placeholder {
+    color:$color;
+  }
+}
+
+@mixin mq-small {
+  @media only screen and (max-width:$screen-sm) {
+    @content;
+  }
+}

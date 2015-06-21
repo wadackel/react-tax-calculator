@@ -1,0 +1,31 @@
+.header {
+  margin:0 0 60px 0;
+  padding:80px 0;
+  background:$color-green;
+  border-top:10px solid darken($color-green, 6%);
+  box-shadow:$depth-2;
+  color:#fff;
+
+  h1 {
+    margin:0 0 30px 0;
+    font-size:28px;
+    font-weight:normal;
+  }
+
+  .input-group__addon {
+    color:#fff;
+  }
+
+  .input-group__control {
+    @include placeholder-color(lighten($color-green, 4%));
+    &:focus {
+      border-color:lighten($color-green, 10%);
+      box-shadow:0 1px 0 lighten($color-green, 10%);
+    }
+  }
+
+  @include mq-small {
+    margin-bottom:40px;
+    padding:40px 0;
+  }
+}

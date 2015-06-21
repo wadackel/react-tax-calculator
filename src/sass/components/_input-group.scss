@@ -1,0 +1,78 @@
+.input-group {
+  position:relative;
+  display:table;
+  width:100%;
+  margin:0 0 10px 0;
+  border-collapse:separate;
+
+  @at-root {
+    #{&}__addon,
+    #{&}__control {
+      display:table-cell;
+      box-sizing:border-box;
+    }
+
+    #{&}__addon {
+      width:1%;
+      margin:0;
+      padding:6px 12px;
+      color:$color-gray;
+      background:transparent;
+      border:none;
+      vertical-align:middle;
+      text-align:center;
+      white-space:nowrap;
+      font-size:$control-font-size-md;
+      font-weight:400;
+      line-height:1;
+    }
+
+    #{&}__control {
+      @include placeholder-color(#ccc);
+      position:relative;
+      z-index:2;
+      float:left;
+      width:100%;
+      height:$control-height-md;
+      margin:0;
+      padding:6px 12px;
+      box-sizing:border-box;
+      background:transparent;
+      border-width:0 0 1px 0;
+      border-style:solid;
+      border-color:$color-border;
+      border-radius:0;
+      font-size:$control-font-size-md;
+      line-height:1.4;
+      transition:all $transition-duration $ease-out-quart;
+      &:focus {
+        border-color:$color-green;
+        box-shadow:0 1px 0 $color-green;
+      }
+      &.Select {
+        padding:0;
+        vertical-align:middle;
+      }
+    }
+
+    #{&}--lg {
+      .input-group__addon {
+        font-size:floor($control-font-size-lg * 0.8);
+      }
+      .input-group__control {
+        height:$control-height-lg;
+        font-size:$control-font-size-lg;
+      }
+    }
+
+    #{&}--x-lg {
+      .input-group__addon {
+        font-size:floor($control-font-size-x-lg * 0.8);
+      }
+      .input-group__control {
+        height:$control-height-x-lg;
+        font-size:$control-font-size-x-lg;
+      }
+    }
+  }
+}

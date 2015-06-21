@@ -1,0 +1,41 @@
+.tax-calculator {
+  $_clear-btn-size:30px;
+
+  @at-root {
+    #{&}__price {
+      margin-bottom:30px;
+      .input-group__control {
+        padding-right:$_clear-btn-size + $_clear-btn-size / 2;
+      }
+    }
+
+    #{&}__price__clear {
+      position:absolute;
+      top:50%;
+      right:$_clear-btn-size / 2;
+      z-index:100;
+      display:none;
+      width:$_clear-btn-size;
+      height:$_clear-btn-size;
+      margin:-($_clear-btn-size / 2) 0 0 0;
+      padding:0;
+      background:transparent;
+      border:none;
+      font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size:$_clear-btn-size;
+      line-height:$_clear-btn-size;
+      &:hover {
+        color:darken(#fff, 20%);
+      }
+      &.is-show {
+        display:block;
+      }
+    }
+
+    #{&}__results {
+      .input-group__control {
+        border:none;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.container {
+  width:700px;
+  margin:0 auto;
+
+  @include mq-small {
+    width:auto;
+    padding-right:$screen-sm-padding;
+    padding-left:$screen-sm-padding;
+  }
+}

@@ -1,0 +1,18 @@
+.react-tabs {
+  & [role="tablist"] {
+    display:table;
+    width:100%;
+    margin-bottom:30px;
+    table-layout:fixed;
+    border-color:$color-border;
+  }
+
+  & [role="tab"] {
+    display:table-cell;
+    padding:15px;
+    &[aria-selected="true"] {
+      border-color:$color-border;
+      border-radius:0;
+    }
+  }
+}

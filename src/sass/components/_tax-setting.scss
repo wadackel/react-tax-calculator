@@ -1,0 +1,34 @@
+.tax-setting {
+  $_gutter:10px;
+
+  @at-root {
+    #{&}__row {
+      display:table;
+      width:100%;
+      margin-right:-$_gutter;
+      margin-left:-$_gutter;
+      table-layout:fixed;
+    }
+
+    #{&}__col {
+      display:table-cell;
+      vertical-align:middle;
+      padding-right:$_gutter;
+      padding-left:$_gutter;
+    }
+  }
+
+  @include mq-small {
+    #{&}__row {
+      display:block;
+      width:auto;
+      margin:0;
+    }
+
+    #{&}__col {
+      position:relative;
+      display:block;
+      padding:0;
+    }
+  }
+}
