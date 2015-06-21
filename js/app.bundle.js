@@ -22546,13 +22546,25 @@
 /* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var About, App, GitHubForkRibbon, React, ReactTabs, Tab, TabList, TabPanel, Tabs, TaxCalculator, TaxSetting, store;
+	var About, App, DefaultSetting, FormatType, GitHubForkRibbon, React, ReactTabs, Tab, TabList, TabPanel, Tabs, TaxCalculator, TaxSetting, store;
 	
 	store = __webpack_require__(175);
 	
 	React = __webpack_require__(177);
 	
 	ReactTabs = __webpack_require__(178);
+	
+	GitHubForkRibbon = __webpack_require__(187);
+	
+	TaxSetting = __webpack_require__(198);
+	
+	TaxCalculator = __webpack_require__(205);
+	
+	About = __webpack_require__(208);
+	
+	FormatType = __webpack_require__(203);
+	
+	DefaultSetting = __webpack_require__(204);
 	
 	Tab = ReactTabs.Tab;
 	
@@ -22562,27 +22574,20 @@
 	
 	TabPanel = ReactTabs.TabPanel;
 	
-	GitHubForkRibbon = __webpack_require__(187);
-	
-	TaxSetting = __webpack_require__(198);
-	
-	TaxCalculator = __webpack_require__(204);
-	
-	About = __webpack_require__(207);
-	
 	App = React.createClass({
 	  getInitialState: function() {
 	    return {
-	      rate: store.get("rate") || 8,
-	      rule: store.get("rule") || "floor",
-	      format: store.get("format") || "TYPE_2"
+	      rate: store.get("rate") || DefaultSetting.rate,
+	      rule: store.get("rule") || DefaultSetting.rule,
+	      format: store.get("format") || DefaultSetting.format
 	    };
 	  },
 	  render: function() {
-	    var currentTab;
+	    var currentTab, price;
+	    price = store.get("price") || DefaultSetting.price;
 	    currentTab = store.get("currentTab") || 0;
 	    return React.createElement("div", null, React.createElement(GitHubForkRibbon, {
-	      "href": "#",
+	      "href": "https://github.com/tsuyoshiwada/react-tax-calculator",
 	      "position": "right",
 	      "color": "black"
 	    }, "Fork me on GitHub"), React.createElement("div", {
@@ -22592,10 +22597,11 @@
 	    }, React.createElement("h1", null, React.createElement("i", {
 	      "className": "fa fa-dot-circle-o"
 	    }), " Tax Calculator"), React.createElement(TaxCalculator, {
-	      "price": 10000,
+	      "price": price,
 	      "rate": this.state.rate,
 	      "rule": this.state.rule,
-	      "format": this.state.format
+	      "format": FormatType[this.state.format],
+	      "onPriceChange": this.handlePriceChange
 	    }))), React.createElement("div", {
 	      "className": "container"
 	    }, React.createElement(Tabs, {
@@ -22617,6 +22623,9 @@
 	    }, "Copyright \u00a9 ", React.createElement("a", {
 	      "href": "https://github.com/tsuyoshiwada"
 	    }, "tsuyoshi wada"), " All Right Reserved."));
+	  },
+	  handlePriceChange: function(price) {
+	    return store.set("price", price);
 	  },
 	  handleRateChange: function(rate) {
 	    store.set("rate", rate);
@@ -24422,7 +24431,7 @@
 /* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var FormatType, React, Select, TaxRule;
+	var DefaultSetting, FormatType, React, Select, TaxRule;
 	
 	React = __webpack_require__(177);
 	
@@ -24430,7 +24439,7 @@
 	
 	FormatType = __webpack_require__(203);
 	
-	React.initializeTouchEvents(true);
+	DefaultSetting = __webpack_require__(204);
 	
 	TaxRule = React.createClass({
 	  propTypes: {
@@ -24441,15 +24450,8 @@
 	    onRuleChange: React.PropTypes.func,
 	    onFormatChange: React.PropTypes.func
 	  },
-	  getInitialState: function() {
-	    return {
-	      rate: this.props.rate,
-	      rule: this.props.rule,
-	      format: this.props.format
-	    };
-	  },
 	  render: function() {
-	    var format, formatOptions, key, ruleOptions, value;
+	    var formatOptions, ruleOptions;
 	    ruleOptions = [
 	      {
 	        value: "floor",
@@ -24474,13 +24476,6 @@
 	        label: "¥+12,000"
 	      }
 	    ];
-	    format = "";
-	    for (key in FormatType) {
-	      value = FormatType[key];
-	      if (value === this.state.format) {
-	        format = key;
-	      }
-	    }
 	    return React.createElement("div", {
 	      "className": "tax-setting"
 	    }, React.createElement("div", {
@@ -24493,9 +24488,10 @@
 	      "className": "input-group__addon"
 	    }, "\u7a0e\u7387"), React.createElement("input", {
 	      "type": "number",
+	      "pattern": "[0-9]*",
 	      "className": "input-group__control",
 	      "placeholder": "00",
-	      "value": this.state.rate,
+	      "value": this.props.rate,
 	      "onChange": this.handleRateChange
 	    }), React.createElement("span", {
 	      "className": "input-group__addon"
@@ -24506,7 +24502,7 @@
 	    }, React.createElement("span", {
 	      "className": "input-group__addon"
 	    }, "\u8a08\u7b97\u65b9\u6cd5"), React.createElement(Select, {
-	      "value": this.state.rule,
+	      "value": this.props.rule,
 	      "className": "input-group__control",
 	      "clearable": false,
 	      "searchable": false,
@@ -24519,44 +24515,48 @@
 	    }, React.createElement("span", {
 	      "className": "input-group__addon"
 	    }, "\u8868\u8a18"), React.createElement(Select, {
-	      "value": format,
+	      "value": this.props.format,
 	      "className": "input-group__control",
 	      "clearable": false,
 	      "searchable": false,
 	      "options": formatOptions,
 	      "onChange": this.handleFormatChange
-	    })))));
+	    })))), React.createElement("button", {
+	      "type": "button",
+	      "className": "tax-setting__clear",
+	      "onClick": this.handleClearClick
+	    }, "\u8a2d\u5b9a\u3092\u521d\u671f\u5316"));
 	  },
 	  handleRateChange: function(e) {
-	    var ref, value;
+	    var base, value;
 	    value = e.target.value.trim();
 	    if (value === "") {
-	      this.setState({
-	        rate: value
-	      });
 	      return;
 	    }
 	    value = parseInt(e.target.value);
 	    if (!isNaN(value)) {
-	      this.setState({
-	        rate: value
-	      });
-	      return (ref = this.props) != null ? ref.onRateChange(value) : void 0;
+	      return typeof (base = this.props).onRateChange === "function" ? base.onRateChange(value) : void 0;
 	    }
 	  },
 	  handleRuleChange: function(value) {
-	    var ref;
-	    this.setState({
-	      rule: value
-	    });
-	    return (ref = this.props) != null ? ref.onRuleChange(value) : void 0;
+	    var base;
+	    return typeof (base = this.props).onRuleChange === "function" ? base.onRuleChange(value) : void 0;
 	  },
 	  handleFormatChange: function(value) {
-	    var ref;
-	    this.setState({
-	      format: FormatType[value]
-	    });
-	    return (ref = this.props) != null ? ref.onFormatChange(FormatType[value]) : void 0;
+	    var base;
+	    return typeof (base = this.props).onFormatChange === "function" ? base.onFormatChange(value) : void 0;
+	  },
+	  handleClearClick: function(e) {
+	    var base, base1, base2, format, rate, rule;
+	    e.preventDefault();
+	    rate = DefaultSetting.rate, rule = DefaultSetting.rule, format = DefaultSetting.format;
+	    if (typeof (base = this.props).onRateChange === "function") {
+	      base.onRateChange(rate);
+	    }
+	    if (typeof (base1 = this.props).onRuleChange === "function") {
+	      base1.onRuleChange(rule);
+	    }
+	    return typeof (base2 = this.props).onFormatChange === "function" ? base2.onFormatChange(format) : void 0;
 	  }
 	});
 	
@@ -25552,25 +25552,35 @@
 
 /***/ },
 /* 204 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  price: 10000,
+	  rate: 8,
+	  rule: "floor",
+	  format: "TYPE_2"
+	};
+
+
+/***/ },
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var LinkedStateMixin, React, TaxCalculator, classNames, numeral;
+	var React, TaxCalculator, classNames, numeral;
 	
-	numeral = __webpack_require__(205);
+	numeral = __webpack_require__(206);
 	
-	classNames = __webpack_require__(206);
+	classNames = __webpack_require__(207);
 	
-	React = __webpack_require__(1);
-	
-	LinkedStateMixin = React.addons.LinkedStateMixin;
+	React = __webpack_require__(177);
 	
 	TaxCalculator = React.createClass({
-	  mixins: [LinkedStateMixin],
 	  propTypes: {
 	    price: React.PropTypes.any,
 	    rate: React.PropTypes.number.isRequired,
 	    rule: React.PropTypes.string.isRequired,
-	    format: React.PropTypes.string.isRequired
+	    format: React.PropTypes.string.isRequired,
+	    onPriceChange: React.PropTypes.func
 	  },
 	  getInitialState: function() {
 	    return {
@@ -25578,7 +25588,11 @@
 	    };
 	  },
 	  render: function() {
-	    var priceClearClasses;
+	    var priceClearClasses, valueLink;
+	    valueLink = {
+	      value: this.state.price,
+	      requestChange: this.handlePriceChange
+	    };
 	    priceClearClasses = classNames({
 	      "tax-calculator__price__clear": true,
 	      "is-show": this.state.price.toString().length > 0
@@ -25594,7 +25608,7 @@
 	      "pattern": "[0-9]*",
 	      "className": "input-group__control",
 	      "placeholder": "計算する金額",
-	      "valueLink": this.linkState("price")
+	      "valueLink": valueLink
 	    }), React.createElement("button", {
 	      "type": "button",
 	      "className": priceClearClasses,
@@ -25627,11 +25641,20 @@
 	      "className": "input-group__addon"
 	    }, "\u7a0e\u629c"))));
 	  },
+	  handlePriceChange: function(newValue) {
+	    var base;
+	    this.setState({
+	      price: newValue
+	    });
+	    return typeof (base = this.props).onPriceChange === "function" ? base.onPriceChange(newValue) : void 0;
+	  },
 	  handlePriceClearClick: function(e) {
+	    var base;
 	    e.preventDefault();
-	    return this.setState({
+	    this.setState({
 	      price: ""
 	    });
+	    return typeof (base = this.props).onPriceChange === "function" ? base.onPriceChange("") : void 0;
 	  },
 	  handleResultClick: function(e) {
 	    return e.target.select();
@@ -25658,7 +25681,7 @@
 
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26343,7 +26366,7 @@
 
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26398,7 +26421,7 @@
 
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var About, React;
