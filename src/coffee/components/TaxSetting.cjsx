@@ -1,9 +1,7 @@
 React = require("react")
 Select = require("react-select")
 FormatType = require("../constants/FormatType")
-
-
-React.initializeTouchEvents(true)
+DefaultSetting = require("../constants/DefaultSetting")
 
 
 TaxRule = React.createClass
@@ -14,11 +12,6 @@ TaxRule = React.createClass
     onRateChange: React.PropTypes.func
     onRuleChange: React.PropTypes.func
     onFormatChange: React.PropTypes.func
-
-  getInitialState: ->
-    rate: @props.rate
-    rule: @props.rule
-    format: @props.format
 
   render: ->
     ruleOptions = [
@@ -35,10 +28,6 @@ TaxRule = React.createClass
       {value: "TYPE_3", label: "¥+12,000"}
     ]
 
-    format = ""
-    for key, value of FormatType
-      format = key if value == @state.format
-
 
     <div className="tax-setting">
 
@@ -48,9 +37,10 @@ TaxRule = React.createClass
             <span className="input-group__addon">税率</span>
             <input
               type="number"
+              pattern="[0-9]*"
               className="input-group__control"
               placeholder="00"
-              value={@state.rate}
+              value={@props.rate}
               onChange={@handleRateChange} />
             <span className="input-group__addon">%</span>
           </div>
@@ -60,7 +50,7 @@ TaxRule = React.createClass
           <div className="input-group">
             <span className="input-group__addon">計算方法</span>
             <Select
-              value={@state.rule}
+              value={@props.rule}
               className="input-group__control"
               clearable={false}
               searchable={false}
@@ -73,7 +63,7 @@ TaxRule = React.createClass
           <div className="input-group">
             <span className="input-group__addon">表記</span>
             <Select
-              value={format}
+              value={@props.format}
               className="input-group__control"
               clearable={false}
               searchable={false}
@@ -81,28 +71,34 @@ TaxRule = React.createClass
               onChange={@handleFormatChange} />
           </div>
         </div>
-
       </div>
+
+      <button type="button" className="tax-setting__clear" onClick={@handleClearClick}>設定を初期化</button>
     </div>
 
   handleRateChange: (e) ->
     value = e.target.value.trim()
     if value == ""
-      @setState(rate: value)
       return
 
     value = parseInt(e.target.value)
     if !isNaN(value)
-      @setState(rate: value)
-      @props?.onRateChange(value)
+      @props.onRateChange?(value)
 
   handleRuleChange: (value) ->
-    @setState(rule: value)
-    @props?.onRuleChange(value)
+    @props.onRuleChange?(value)
 
   handleFormatChange: (value) ->
-    @setState(format: FormatType[value])
-    @props?.onFormatChange(FormatType[value])
+    @props.onFormatChange?(value)
+
+  handleClearClick: (e) ->
+    e.preventDefault()
+
+    {rate, rule, format} = DefaultSetting
+    @props.onRateChange?(rate)
+    @props.onRuleChange?(rule)
+    @props.onFormatChange?(format)
+
 
 
 module.exports = TaxRule

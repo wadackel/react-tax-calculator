@@ -1,14 +1,12 @@
 {
-  "name": "sample-react-coffee",
+  "name": "react-tax-calculator",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "React+CoffeeScriptで制作した消費税の計算アプリケーションです",
   "author": "tsuyoshiwada",
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.7.5",
     "cjsx-loader": "^2.0.1",
-    "classnames": "^2.1.2",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.2",
     "gulp": "^3.8.11",
@@ -23,6 +21,7 @@
     "webpack": "^1.9.10"
   },
   "dependencies": {
+    "classnames": "^2.1.2",
     "numeral": "^1.5.3",
     "react": "^0.13.3",
     "react-github-fork-ribbon": "^0.3.0",

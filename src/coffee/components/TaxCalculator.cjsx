@@ -1,22 +1,24 @@
 numeral = require("numeral")
 classNames = require("classnames")
-React = require("react/addons")
-LinkedStateMixin = React.addons.LinkedStateMixin
+React = require("react")
 
 
 TaxCalculator = React.createClass
-  mixins: [LinkedStateMixin]
-
   propTypes:
     price: React.PropTypes.any
     rate: React.PropTypes.number.isRequired
     rule: React.PropTypes.string.isRequired
     format: React.PropTypes.string.isRequired
+    onPriceChange: React.PropTypes.func
 
   getInitialState: ->
     price: @props.price || 0
 
   render: ->
+    valueLink = 
+      value: @state.price
+      requestChange: @handlePriceChange
+
     priceClearClasses = classNames(
       "tax-calculator__price__clear": true
       "is-show": @state.price.toString().length > 0
@@ -31,7 +33,7 @@ TaxCalculator = React.createClass
           pattern="[0-9]*"
           className="input-group__control"
           placeholder="計算する金額"
-          valueLink={@linkState("price")} />
+          valueLink={valueLink}/>
         <button
           type="button"
           className={priceClearClasses}
@@ -65,9 +67,14 @@ TaxCalculator = React.createClass
 
     </div>
 
+  handlePriceChange: (newValue) ->
+    @setState(price: newValue)
+    @props.onPriceChange?(newValue)
+
   handlePriceClearClick: (e) ->
     e.preventDefault()
     @setState(price: "")
+    @props.onPriceChange?("")
 
   handleResultClick: (e) ->
     e.target.select()

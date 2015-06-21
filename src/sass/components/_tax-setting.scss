@@ -16,6 +16,27 @@
       padding-right:$_gutter;
       padding-left:$_gutter;
     }
+
+    #{&}__clear {
+      display:block;
+      width:150px;
+      margin:50px auto;
+      padding:6px 12px;
+      background:$color-green;
+      font-size:12px;
+      border:none;
+      border-radius:2px;
+      color:#fff;
+      transition:all $transition-duration $ease-out-quad;
+      &:hover {
+        background:lighten($color-green, 5%);
+        box-shadow:$depth-1;
+      }
+      &:active {
+        background:lighten($color-green, 10%);
+        box-shadow:$depth-2;
+      }
+    }
   }
 
   @include mq-small {

@@ -5,7 +5,6 @@ browserSync   = require("browser-sync").create()
 webpackConfig = require("./webpack.config.coffee")
 
 
-# ブラウザの同期
 gulp.task("bs", ->
   browserSync.init(
     notify: false
@@ -19,7 +18,6 @@ gulp.task("bs:reload", ->
 )
 
 
-# assetsディレクトリのコピー
 gulp.task("assets-copy", ->
   gulp.src("./assets/**/*", base: "./assets")
   .pipe(gulp.dest("./dist"))
@@ -27,7 +25,6 @@ gulp.task("assets-copy", ->
 )
 
 
-# .scssのコンパイル
 gulp.task("sass", ->
   $.rubySass("./src/sass/", 
     style: "compressed"
@@ -39,7 +36,6 @@ gulp.task("sass", ->
 )
 
 
-# webpack
 gulp.task("webpack", (cb) ->
   webpack(webpackConfig, (err, stats) ->
     if err
@@ -52,8 +48,6 @@ gulp.task("webpack", (cb) ->
 )
 
 
-# 各ファイルをビルド
-# ※今回はファイルの圧縮などはしていません
 gulp.task("build", ->
   gulp.start("assets-copy")
   gulp.start("sass")
@@ -61,7 +55,6 @@ gulp.task("build", ->
 )
 
 
-# ファイルの変更を監視
 gulp.task("watch", ["bs", "build"], ->
   $.watch("./assets/**/*", ->
     gulp.start("assets-copy")
@@ -77,7 +70,6 @@ gulp.task("watch", ["bs", "build"], ->
 )
 
 
-# デフォルトのタスク
 gulp.task("default", ->
   gulp.start("watch")
 )
