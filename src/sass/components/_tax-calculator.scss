@@ -1,15 +1,12 @@
 .tax-calculator {
   $_clear-btn-size:30px;
 
-  @at-root {
-    #{&}__price {
-      margin-bottom:30px;
-      .input-group__control {
-        padding-right:$_clear-btn-size + $_clear-btn-size / 2;
-      }
+  @include e(price) {
+    margin-bottom:30px;
+    .input-group__control {
+      padding-right:$_clear-btn-size + $_clear-btn-size / 2;
     }
-
-    #{&}__price__clear {
+    @include e(clear) {
       position:absolute;
       top:50%;
       right:$_clear-btn-size / 2;
@@ -31,11 +28,12 @@
         display:block;
       }
     }
+  }
 
-    #{&}__results {
-      .input-group__control {
-        border:none;
-      }
+  @include e(results) {
+    .input-group__control {
+      border:none;
     }
   }
+
 }

@@ -1,12 +1,32 @@
+// Elements
+@mixin e($names...) {
+  @each $name in $names {
+    &__#{$name} {
+      @content;
+    }
+  }
+}
+
+// Modifiers
+@mixin m($names...) {
+  @each $name in $names {
+    &--#{$name} {
+      @content;
+    }
+  }
+}
+
+
 @mixin placeholder-color($color) {
   &:-moz-placeholder {
     color:$color;
   }
-  
+
   &::-webkit-input-placeholder {
     color:$color;
   }
 }
+
 
 @mixin mq-small {
   @media only screen and (max-width:$screen-sm) {
