@@ -1,6 +1,9 @@
 .tax-setting {
   $_gutter:10px;
 
+  @include e(title) {
+  }
+
   @include e(row) {
     display:table;
     width:100%;
@@ -49,5 +52,5 @@
       padding:0;
     }
   }
-  
+
 }

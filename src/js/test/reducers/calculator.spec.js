@@ -1,6 +1,8 @@
 import expect from "expect"
 import calculator from "../../reducers/calculator"
 import * as types from "../../constants/ActionTypes"
+import * as ruleTypes from "../../constants/RuleTypes"
+import * as formatTypes from "../../constants/FormatTypes"
 
 
 describe("calculator reducer", () => {
@@ -11,8 +13,8 @@ describe("calculator reducer", () => {
     ).toEqual({
       price: 1000,
       rate: 8,
-      rule: "floor",
-      format: "TYPE_2"
+      rule: ruleTypes.FLOOR,
+      format: formatTypes.TYPE_2
     });
   });
 
@@ -25,8 +27,8 @@ describe("calculator reducer", () => {
     ).toEqual({
       price: 2000,
       rate: 8,
-      rule: "floor",
-      format: "TYPE_2"
+      rule: ruleTypes.FLOOR,
+      format: formatTypes.TYPE_2
     });
   });
 
@@ -39,8 +41,8 @@ describe("calculator reducer", () => {
     ).toEqual({
       price: 1000,
       rate: 10,
-      rule: "floor",
-      format: "TYPE_2"
+      rule: ruleTypes.FLOOR,
+      format: formatTypes.TYPE_2
     });
   });
 
@@ -48,13 +50,13 @@ describe("calculator reducer", () => {
     expect(
       calculator(undefined, {
         type: types.CHANGE_RULE,
-        rule: "round"
+        rule: ruleTypes.ROUND
       })
     ).toEqual({
       price: 1000,
       rate: 8,
-      rule: "round",
-      format: "TYPE_2"
+      rule: ruleTypes.ROUND,
+      format: formatTypes.TYPE_2
     });
   });
 
@@ -62,13 +64,13 @@ describe("calculator reducer", () => {
     expect(
       calculator(undefined, {
         type: types.CHANGE_FORMAT,
-        format: "TYPE_1"
+        format: formatTypes.TYPE_1
       })
     ).toEqual({
       price: 1000,
       rate: 8,
-      rule: "floor",
-      format: "TYPE_1"
+      rule: ruleTypes.FLOOR,
+      format: formatTypes.TYPE_1
     });
   });
 

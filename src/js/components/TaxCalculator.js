@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from "react"
+import numeral from "numeral"
 
 
 export default class TaxCalculator extends Component {
@@ -13,7 +14,7 @@ export default class TaxCalculator extends Component {
             className="input-group__control"
             pattern="[0-9]*"
             placeholder="計算する金額"
-            defaultValue={this.props.price}
+            value={this.props.price}
             onChange={this.handlePriceChange.bind(this)} />
           <button
             type="button"
@@ -30,7 +31,8 @@ export default class TaxCalculator extends Component {
               type="text"
               className="input-group__control"
               readOnly={true}
-              value={this.calcPrice(true)} />
+              value={this.calcPrice(true)}
+              onClick={this.handleResultClick.bind(this)} />
             <span className="input-group__addon">税込</span>
           </div>
           <div className="input-group input-group--lg">
@@ -39,7 +41,8 @@ export default class TaxCalculator extends Component {
               type="text"
               className="input-group__control"
               readOnly={true}
-              value={this.calcPrice(false)} />
+              value={this.calcPrice(false)}
+              onClick={this.handleResultClick.bind(this)} />
             <span className="input-group__addon">税抜</span>
           </div>
         </div>
@@ -51,7 +54,14 @@ export default class TaxCalculator extends Component {
     this.props.onPriceChange(this.refs.price.value);
   }
 
-  handlePriceClearClick() {
+  handlePriceClearClick(e) {
+    e.preventDefault();
+    this.refs.price.value = "";
+    this.props.onPriceChange("");
+  }
+
+  handleResultClick(e) {
+    e.target.select();
   }
 
   calcPrice(includeTax=true) {
@@ -64,8 +74,7 @@ export default class TaxCalculator extends Component {
     }else{
       let val = includeTax ? price * rate : price / rate;
       val = mathMethod(val);
-      // @TODO format
-      return val;
+      return numeral(val).format(this.props.format);
     }
   }
 }

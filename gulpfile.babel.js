@@ -79,7 +79,8 @@ gulp.task("sass", () => {
 
 
 gulp.task("test", () => {
-  gulp.src("./src/js/test/**/*.spec.js", {read: false})
+  gulp.src("./src/js/test/**/*.js", {read: false})
+  .pipe($.plumber())
   .pipe($.mocha());
 });
 
@@ -92,8 +93,8 @@ gulp.task("build", () => {
       "copy"
     ],
     [
-      "uglify",
-      "test"
+      "uglify"
+      // "test"
     ]
   );
 });
@@ -102,7 +103,7 @@ gulp.task("build", () => {
 gulp.task("watch", () => {
   gulp.watch("./src/js/**/*", ["webpack"]);
   gulp.watch("./src/sass/**/*", ["sass"]);
-  gulp.watch("./src/test/**/*", ["test"]);
+  // gulp.watch("./src/js/test/**/*", ["test"]);
 });
 
 

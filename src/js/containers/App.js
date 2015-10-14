@@ -1,18 +1,34 @@
 import React, {Component, PropTypes} from "react"
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
+import GitHubForkRibbon from "react-github-fork-ribbon"
 import Select from "react-select"
 import * as CalculatorActions from "../actions/calculator"
+import * as ruleTypes from "../constants/RuleTypes"
+import * as formatTypes from "../constants/FormatTypes"
 import TaxCalculator from "../components/TaxCalculator"
 import TaxSetting from "../components/TaxSetting"
 
 
 class App extends Component {
+  componentDidMount() {
+    this.props.syncUserState();
+  }
+
   render() {
-    const {price, rate, rule, format} = this.props;
+    const {
+      price, rate, rule, format,
+      changePrice, changeRate, changeRule, changeFormat
+    } = this.props;
 
     return (
       <div>
+        <GitHubForkRibbon
+          href="https://github.com/tsuyoshiwada/react-tax-calculator"
+          position="right"
+          color="black">
+          Fork me on GitHub
+        </GitHubForkRibbon>
 
         <div className="header">
           <div className="container">
@@ -22,7 +38,7 @@ class App extends Component {
               rate={rate}
               rule={rule}
               format={format}
-              onPriceChange={this.handlePriceChange.bind(this)} />
+              onPriceChange={changePrice} />
           </div>
         </div>
 
@@ -31,43 +47,34 @@ class App extends Component {
             rate={rate}
             rule={rule}
             format={format}
-            onRateChange={this.handleRateChange.bind(this)}
-            onRuleChange={this.handleRuleChange.bind(this)}
-            onFormatChange={this.handleFormatChange.bind(this)} />
+            onRateChange={changeRate}
+            onRuleChange={changeRule}
+            onFormatChange={changeFormat} />
         </div>
 
         <p className="copyright">Copyright &copy; <a href="https://github.com/tsuyoshiwada">tsuyoshi wada</a> All Right Reserved.</p>
       </div>
     );
   }
-
-  handlePriceChange(price) {
-    this.props.changePrice(price);
-  }
-
-  handleRateChange(rate) {
-  }
-
-  handleRuleChange(rule) {
-  }
-
-  handleFormatChange(format) {
-  }
 }
 
 App.propTypes = {
+  syncUserState: PropTypes.func.isRequired,
   changePrice: PropTypes.func.isRequired,
+  changeRate: PropTypes.func.isRequired,
+  changeRule: PropTypes.func.isRequired,
+  changeFormat: PropTypes.func.isRequired,
   price: PropTypes.any.isRequired,
   rate: PropTypes.number.isRequired,
   rule: PropTypes.oneOf([
-    "floor",
-    "ceil",
-    "round"
+    ruleTypes.FLOOR,
+    ruleTypes.CEIL,
+    ruleTypes.ROUND
   ]).isRequired,
   format: PropTypes.oneOf([
-    "TYPE_1",
-    "TYPE_2",
-    "TYPE_3"
+    formatTypes.TYPE_1,
+    formatTypes.TYPE_2,
+    formatTypes.TYPE_3
   ]).isRequired
 };
 

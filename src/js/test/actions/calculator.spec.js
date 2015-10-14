@@ -1,5 +1,7 @@
 import expect from "expect"
 import * as types from "../../constants/ActionTypes"
+import * as ruleTypes from "../../constants/RuleTypes"
+import * as formatTypes from "../../constants/FormatTypes"
 import * as actions from "../../actions/calculator"
 
 
@@ -19,16 +21,16 @@ describe("calculator actions", () => {
   });
 
   it("changeRule should create CHANGE_RULE action", () => {
-    expect(actions.changeRule("ceil")).toEqual({
+    expect(actions.changeRule(ruleTypes.CEIL)).toEqual({
       type: types.CHANGE_RULE,
-      rule: "ceil"
+      rule: ruleTypes.CEIL
     });
   });
 
   it("changeFormat should create CHANGE_FORMAT action", () => {
-    expect(actions.changeFormat("TYPE_3")).toEqual({
+    expect(actions.changeFormat(ruleTypes.TYPE_3)).toEqual({
       type: types.CHANGE_FORMAT,
-      format: "TYPE_3"
+      format: ruleTypes.TYPE_3
     });
   });
 });

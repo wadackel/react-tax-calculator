@@ -1,3 +1,4 @@
+export const SYNC_USER_STATE = "SYNC_USER_STATE";
 export const CHANGE_PRICE = "CHANGE_PRICE";
 export const CHANGE_RATE = "CHANGE_RATE";
 export const CHANGE_RULE = "CHANGE_RULE";
